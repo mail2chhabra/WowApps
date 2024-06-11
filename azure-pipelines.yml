@@ -33,3 +33,29 @@ stages:
         pathToPublish: '$(Build.SourcesDirectory)'
         artifactName: 'source'
       displayName: 'Publish Artifact'
+
+- stage: DockerBuildandPush
+  displayName: 'Build Docker Image and Push to ACR' 
+
+  dependsOn: AppBuild
+  jobs:
+  - job: BuildAndPushDocker
+    displayName: 'Build and Push Docker Image'
+    steps:
+    - download: current
+      artifact: source
+      displayName: 'Download Build Artifact'
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'POCAKS'
+        repository: '$(imageName)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(Build.BuildId)
+      displayName: 'Build and Push Docker Image'
+
+
+
+
