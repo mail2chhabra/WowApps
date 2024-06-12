@@ -13,7 +13,7 @@ const http = require('http');
 const https = require('https');
 const cors = require('cors');
 
-//build config from params
+//build config from parameters
 const config = require('./config');
 const {https:{ key, cert}, port, isHttps, serviceName} = config;
 const credentials = {key, cert};
