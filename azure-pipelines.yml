@@ -9,7 +9,7 @@ pool:
   demands: agent.name -equals WinWsl
 
 variables:
- - group: 'Master.Project.Variable.Set'  # Add your key vault variable group
+- group: 'Master.Project.Variable.Set'  # Add your key vault variable group
 
 stages:
 - stage: AppBuild
