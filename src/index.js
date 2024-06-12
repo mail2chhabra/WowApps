@@ -18,7 +18,7 @@ const config = require('./config');
 const {https:{ key, cert}, port, isHttps, serviceName} = config;
 const credentials = {key, cert};
 
-//setup app & its routes
+//setup apps & its routes
 const app = express();
 app.use(cors());
 const routes = require('./routes/index.route');
