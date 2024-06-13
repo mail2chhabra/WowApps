@@ -1,5 +1,5 @@
 trigger:
-- master
+- dev
 
 resources:
 - repo: self
@@ -9,13 +9,15 @@ pool:
   demands: agent.name -equals WinWsl
 
 variables:
- - group: 'Master.Project.Variable.Set'  # Add your key vault variable group
+- group: 'Master.Project.Variable.Set'  # Add your key vault variable group
+
 
 stages:
 - stage: AppBuild
   displayName: 'Building LH Web App Code'
   jobs:
   - job: Build
+    condition: false
     displayName: 'Build Application'
     steps:
     - task: UseNode@1
@@ -40,6 +42,7 @@ stages:
   dependsOn: AppBuild
   jobs:
   - job: BuildAndPushDocker
+    condition: false
     displayName: 'Build and Push Docker Image'
     steps:
     - download: current
@@ -56,6 +59,29 @@ stages:
           $(Build.BuildId)
       displayName: 'Build and Push Docker Image'
 
-
+- stage: CreatePullRequest
+  jobs:
+  - job: CreatePR
+    variables:
+        azureDevOpsOrganization: 'https://dev.azure.com/sunilchhabrams'
+        projectName: 'master'
+        repositoryName: 'NodeJsSampleRepo'
+        sourceBranch: 'f1'
+        targetBranch: 'qa'
+    steps:
+    - script: |
+        echo "Installing Azure DevOps CLI extension"
+        az extension add --name azure-devops
+        echo "Creating Pull Request from $(sourceBranch) to $(targetBranch)"
+        az devops configure --defaults organization=$(azureDevOpsOrganization) project=$(projectName)
+        az repos pr create --repository $(repositoryName) \
+            --source-branch $(sourceBranch) \
+            --target-branch $(targetBranch) \
+            --title "Merge $(sourceBranch) into $(targetBranch)" \
+            --description "Auto PR created by Azure Pipelines" \
+            --detect true
+      displayName: 'Create Pull Request'
+      env:
+        AZURE_DEVOPS_EXT_PAT: $(PAT)
 
 
