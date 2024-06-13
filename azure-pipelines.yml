@@ -101,6 +101,6 @@ stages:
                 azureSubscriptionConnection: 'ADOAKSServiceConn'
                 azureResourceGroup: 'poc'
                 kubernetesCluster: 'demoaks68'
-                namespace: 'Default'
+                namespace: 'default'
                 manifests: 'dep.yaml'
 
