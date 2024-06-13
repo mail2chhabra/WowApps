@@ -62,6 +62,7 @@ stages:
 - stage: CreatePullRequest
   jobs:
   - job: CreatePR
+    condition: false
     variables:
         azureDevOpsOrganization: 'https://dev.azure.com/sunilchhabrams'
         projectName: 'master'
@@ -84,4 +85,22 @@ stages:
       env:
         AZURE_DEVOPS_EXT_PAT: $(PAT)
 
+- stage: DeploytoAKSDev
+  displayName: Deploy to AKS 
+  jobs:
+    - deployment: Dev
+      environment: Dev
+      strategy: 
+       runOnce:
+         deploy:
+           steps:
+            - task: KubernetesManifest@1
+              inputs:
+                action: 'deploy'
+                connectionType: 'azureResourceManager'
+                azureSubscriptionConnection: 'ADOAKSServiceConn'
+                azureResourceGroup: 'poc'
+                kubernetesCluster: 'demoaks68'
+                namespace: 'Default'
+                manifests: 'dep.yaml'
 
