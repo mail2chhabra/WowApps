@@ -23,7 +23,8 @@ on:
 env:
   AZURE_VMAPP_NAME: DemoApps    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '14.x'                # set this to the node version to use
+  NODE_VERSION: '14.x'            # set this to the node version to use
+  STAGE: false
 
 permissions:
   contents: read
@@ -31,6 +32,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: env.STAGE == 'true'
     steps:
     - uses: actions/checkout@v4
 
