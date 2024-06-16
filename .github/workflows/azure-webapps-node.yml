@@ -24,7 +24,7 @@ env:
   AZURE_VMAPP_NAME: DemoApps    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'            # set this to the node version to use
-  STAGE: false
+  #STAGE: false
 
 permissions:
   contents: read
@@ -32,17 +32,19 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: env.STAGE == 'true'
+   # if: env.STAGE == 'true'
     steps:
     - uses: actions/checkout@v4
 
     - name: Set up Node.js
+      if: ${{ false }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
 
     - name: npm install, build, and test
+      if: ${{ false }}
       run: |
         npm install
         npm run build --if-present
