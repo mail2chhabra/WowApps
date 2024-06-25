@@ -56,12 +56,9 @@ jobs:
         path: .
 
   deploy:
-   name: Push to VM Instance
+    name: Push to VM Instance
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v1
-
       - name: Deploy to my VM
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
