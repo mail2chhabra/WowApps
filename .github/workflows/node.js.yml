@@ -63,7 +63,8 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           key: ${{ secrets.SSH_PUBLIC_KEY }}
-          host: ${{ secrets.REMOTE_HOST }}
+          #host: ${{ secrets.REMOTE_HOST }}
+          host: 13.90.169.66
           username: build1
           port: 22
           script: whoami          
