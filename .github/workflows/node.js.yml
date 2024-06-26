@@ -67,7 +67,7 @@ jobs:
           #NAME: production
           #PORT: 22
           #USER: build1
-      - run: 
+      - run: |
           ssh -T build1@13.90.169.66 || true
           ssh -T build1@13.90.169.66 'hostname'
       #- run: ssh production date
