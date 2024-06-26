@@ -62,12 +62,13 @@ jobs:
       - name: SSH Connection Check
         uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
         with:
-          ORIGIN: ${{ secrets.REMOTE_HOST }} # example.com || 8.8.8.8
+          #ORIGIN: ${{ secrets.REMOTE_HOST }} # example.com || 8.8.8.8
           SSHKEY: ${{ secrets.SSH_PUBLIC_KEY }} # ----- BEGIN RSA PRIVATE KEY----- ...
-          NAME: production
-          PORT: 22
-          USER: build1
-      - run: ssh production date
+          #NAME: production
+          #PORT: 22
+          #USER: build1
+      - run: ssh -T build1@13.90.169.66 || true
+      #- run: ssh production date
          # key: ${{ secrets.SSH_PUBLIC_KEY }}
           #host: ${{ secrets.REMOTE_HOST }}
           #host: 13.90.169.66
