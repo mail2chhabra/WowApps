@@ -67,7 +67,7 @@ jobs:
           NAME: production
           PORT: 22
           USER: build1
-      - run: ssh production ls --help
+      - run: ssh production date
          # key: ${{ secrets.SSH_PUBLIC_KEY }}
           #host: ${{ secrets.REMOTE_HOST }}
           #host: 13.90.169.66
