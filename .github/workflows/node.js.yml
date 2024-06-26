@@ -68,8 +68,7 @@ jobs:
           #PORT: 22
           #USER: build1
       - run: |
-          ssh -o StrictHostKeyChecking=no -T build1@13.90.169.66 || true
-          ssh -o StrictHostKeyChecking=no -T build1@13.90.169.66 'hostname'
+          ssh -o StrictHostKeyChecking=no build1@13.90.169.66 'hostname'
       #- run: ssh production date
          # key: ${{ secrets.SSH_PUBLIC_KEY }}
           #host: ${{ secrets.REMOTE_HOST }}
